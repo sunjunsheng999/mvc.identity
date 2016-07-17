@@ -1,0 +1,27 @@
+﻿@model Mvc.Identity.DAL.ApplicationUser
+@*@model Microsoft.AspNet.Identity.EntityFramework.IdentityUser*@
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>编辑用户</h2>
+
+@Html.ActionLink("用户列表", "Index") | @Html.ActionLink("管理用户角色", "ManageUserRoles", "Roles")
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)    
+    @Html.HiddenFor(model => model.Id)
+    
+    @Html.EditorForModel()
+    
+    @*<div>
+        User name
+    </div>
+    <p>
+        @Html.TextBoxFor(model => model.UserName)
+    </p>*@
+
+    <input type="submit" value="保存" />
+}

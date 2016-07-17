@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "ManageUserRoles";
+}
+
+<h2>管理用户角色</h2>
+@Html.ActionLink("创建新角色", "Create") | @Html.ActionLink("管理用户角色", "ManageUserRoles")
+<hr />
+
+<h2>给用户增加新角色</h2>
+
+@using (Html.BeginForm("RoleAddToUser", "Roles"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        用户名: @Html.TextBox("UserName")
+        角色名: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+
+    </p>
+
+    <input type="submit" value="保存" />
+}
+<hr />
+<h3>显示用户已有角色</h3>
+@using (Html.BeginForm("GetRoles", "Roles"))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        用户名 : @Html.TextBox("UserName")
+        <input type="submit" value="获取此用户角色" />
+    </p>
+}
+
+@if (ViewBag.RolesForThisUser != null)
+{
+    <div style="background-color:yellow;">
+        <h3>Roles for this user </h3>
+        <ol>
+            @foreach (string s in ViewBag.RolesForThisUser)
+            {
+                <li>@s</li>
+            }
+        </ol>
+    </div>
+}
+
+<hr />
+<h3>删除此用户的选定角色</h3>
+
+@using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        用户名: @Html.TextBox("UserName")
+        角色名: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+
+    </p>
+
+    <input type="submit" value="删除此角色" />
+}

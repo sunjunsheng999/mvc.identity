@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>用户列表</h2>
+
+@Html.ActionLink("注册新用户", "Register") | @Html.ActionLink("管理用户角色", "ManageUserRoles","Roles")
+<hr />
+<div>
+    @foreach (var user in Model)
+    {
+        <p>
+            <strong>@user.UserName</strong>
+            <span onclick="return confirm('你确定要删除此用户吗?')"><a href="/Account/Delete?UserName=@user.UserName" class="delLink" style="color:red;">删除</a></span> |
+            @Html.ActionLink("编辑", "Edit", new { userName = @user.UserName })
+        </p>
+    }
+</div>
